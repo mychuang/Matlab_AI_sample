@@ -5,4 +5,7 @@
 
 # **Deep Learning Sample**
 
-- googlenet_sample01: 使用googlenet分類圖像的簡單範例
+- pretrained_model01: 使用googlenet分類圖像的簡單範例 <p>
+- pretrained_model02: 使用resnet101分類圖像的簡單範例 <p>
+  <p>更多的pretrained model 可以查閱 APPS -> Deep Network designer
+  
