@@ -4,17 +4,34 @@ clear;
 % import googlenet
 deepnet = googlenet;
 
-% show the structure of network
+%% show the structure of network
 analyzeNetwork(deepnet)
+
+%% show the class name
+categorynames = deepnet.Layers(end).ClassNames;
+
+%% check the input layer
+inlayer = deepnet.Layers(1)
+insz = inlayer.InputSize
+
 %%
 % read image
 img1 = imread("1.jpg");
-imshow(img1);
 
 % resize image
 img1 = imresize(img1,[224 224]);
 
-% input image to googlenet
-pred1 = classify(deepnet, img1);
+%% input image to googlenet
+[pred, scores] = classify(deepnet, img1);
 
-fprintf('%s\n', pred1);
+%% show result
+bar(scores)
+
+%%
+highscores = scores > 0.01;
+bar(scores(highscores))
+xticklabels(categorynames(highscores))
+
+%%
+imshow(img1)
+text(10, 20, char(pred), 'Color', 'white')
