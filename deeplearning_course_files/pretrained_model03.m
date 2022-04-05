@@ -25,5 +25,10 @@ options = trainingOptions("sgdm", "InitialLearnRate", 0.001);
 
 [flowernet, info] = trainNetwork(trainImgs, lgraph, options);
 
-%%
+%% 預測
+testpreds = classify(flowernet,testImgs);
 
+% 評估
+nnz(testpreds == testImgs.Labels) / numel(testpreds);
+
+confusionchart(testImgs.Labels,testpreds);
