@@ -12,23 +12,27 @@ numClasses = numel(categories(flowerds.Labels));
 
 %% Create a network by modifying GoogLeNet
 net = googlenet;
-lgraph = layerGraph(net);
+lgraph = layerGraph(net); % 獲取神經網路資訊
 
-% Modify the classification and output layers
-newFc = fullyConnectedLayer(12,"Name","new_fc");
+% 創建/替換 fullyConnectedLayer，輸出為12個神經元
+newFc = fullyConnectedLayer(numClasses, "Name", "new_fc"); 
 lgraph = replaceLayer(lgraph, "loss3-classifier", newFc);
+
+% 創建/替換 分類層(輸出)
 newOut = classificationLayer("Name", "new_out");
 lgraph = replaceLayer(lgraph, "output", newOut);
 
 %% train model
-options = trainingOptions("sgdm", "InitialLearnRate", 0.001);
+options = trainingOptions("adam","Plots","training-progress", ...
+    "MiniBatchSize",64,"InitialLearnRate",0.001);
 
 [flowernet, info] = trainNetwork(trainImgs, lgraph, options);
 
 %% 預測
-testpreds = classify(flowernet,testImgs);
+testpreds = classify(flowernet, testImgs);
 
 % 評估
-nnz(testpreds == testImgs.Labels) / numel(testpreds);
+accuracy = nnz(testpreds == testImgs.Labels) / numel(testpreds);
+fprintf('accuracy %f\n', accuracy);
 
-confusionchart(testImgs.Labels,testpreds);
+confusionchart(testImgs.Labels, testpreds);

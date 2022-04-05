@@ -8,4 +8,5 @@
 - pretrained_model01: 使用googlenet分類圖像的簡單範例 <p>
 - pretrained_model02: 使用resnet101分類圖像的簡單範例 <p>
   <p>更多的pretrained model 可以查閱 APPS -> Deep Network designer
-  
+
+- trainsfer_model01: 使用googlenet model 訓練Flowers圖集 , 訓練結果可見 <img src="./transferTrainning.png" />
