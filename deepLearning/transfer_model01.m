@@ -1,6 +1,6 @@
 clc; 
 clear;
-%% import data
+% import data
 % imageDatastore: 讀取指定路徑下的所有文件, 輸出ImageDatastore變數
 flowerds = imageDatastore("Flowers","IncludeSubfolders",true,"LabelSource","foldernames");
 
